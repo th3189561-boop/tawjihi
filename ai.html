@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المساعد الذكي | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
+  :root{--bg:#0a0a1a;--primary:#00d4ff;--secondary:#ff006e;--purple:#a855f7}
+  body{background:var(--bg);color:#fff;min-height:100vh}
+  body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;
+    background:
+      radial-gradient(circle at 30% 30%,rgba(255,0,110,0.15),transparent 40%),
+      radial-gradient(circle at 70% 70%,rgba(168,85,247,0.15),transparent 40%);
+    z-index:-2;animation:bgMove 25s ease-in-out infinite}
+  @keyframes bgMove{0%,100%{transform:translate(0,0)}50%{transform:translate(-5%,5%)}}
+  
+  nav{position:fixed;top:0;width:100%;padding:15px 25px;display:flex;justify-content:space-between;
+    align-items:center;background:rgba(10,10,26,0.85);backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(0,212,255,0.2);z-index:100}
+  .logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .back-btn{color:#ccc;text-decoration:none;font-weight:600;padding:8px 18px;border-radius:20px;
+    background:rgba(255,255,255,0.05);border:1px solid rgba(0,212,255,0.3);transition:all 0.3s}
+  .back-btn:hover{color:var(--primary);transform:translateX(-5px)}
+  
+  .header{padding:130px 20px 30px;text-align:center}
+  .header h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:900;
+    background:linear-gradient(135deg,#fff,var(--secondary),var(--purple));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:15px}
+  .header p{color:#999}
+  
+  .chat-wrapper{max-width:800px;margin:30px auto 80px;padding:0 20px}
+  .chat-container{background:rgba(255,255,255,0.03);border:1px solid rgba(255,0,110,0.3);
+    border-radius:25px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+  
+  .chat-header{padding:20px 25px;
+    background:linear-gradient(135deg,rgba(255,0,110,0.2),rgba(168,85,247,0.2));
+    display:flex;align-items:center;gap:15px;border-bottom:1px solid rgba(255,0,110,0.2)}
+  .avatar{width:45px;height:45px;border-radius:50%;
+    background:linear-gradient(135deg,var(--secondary),var(--purple));
+    display:flex;align-items:center;justify-content:center;font-size:1.5rem;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,0,110,0.7)}50%{box-shadow:0 0 0 15px rgba(255,0,110,0)}}
+  
+  .chat-messages{height:450px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+  .chat-messages::-webkit-scrollbar{width:6px}
+  .chat-messages::-webkit-scrollbar-thumb{background:var(--secondary);border-radius:3px}
+  
+  .msg{padding:13px 18px;border-radius:18px;max-width:85%;line-height:1.7;white-space:pre-wrap;
+    animation:slideIn 0.4s ease-out;font-size:0.95rem}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .msg.user{align-self:flex-start;background:linear-gradient(135deg,var(--secondary),var(--purple));
+    color:#fff;font-weight:600}
+  .msg.bot{align-self:flex-end;background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,0,110,0.2);color:#eee}
+  
+  .chat-input-area{display:flex;padding:15px;gap:10px;border-top:1px solid rgba(255,0,110,0.2)}
+  .chat-input-area input{flex:1;padding:14px 18px;background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,0,110,0.2);border-radius:30px;color:#fff;font-family:'Cairo';
+    font-size:1rem;outline:none;transition:all 0.3s}
+  .chat-input-area input:focus{border-color:var(--secondary);box-shadow:0 0 20px rgba(255,0,110,0.3)}
+  .chat-input-area button{padding:14px 25px;border:none;border-radius:30px;
+    background:linear-gradient(135deg,var(--secondary),var(--purple));color:#fff;
+    font-weight:700;cursor:pointer;font-family:'Cairo';transition:all 0.3s}
+  .chat-input-area button:hover{transform:scale(1.05)}
+  .chat-input-area button:disabled{opacity:0.5}
+  
+  .daily-counter{text-align:center;color:#888;font-size:0.85rem;margin-top:12px}
+  
+  footer{text-align:center;padding:40px 20px;border-top:1px solid rgba(0,212,255,0.1);color:#666}
+  
+  @media(max-width:768px){
+    .chat-messages{height:400px}
+    .chat-input-area{flex-direction:column}
+    .chat-input-area button{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🤖 المساعد الذكي</div>
+  <a href="index.html" class="back-btn">← الرئيسية</a>
+</nav>
+
+<div class="header">
+  <h1>زكي — مساعدك الذكي</h1>
+  <p>اسأل عن أي مادة في المنهاج الأردني</p>
+</div>
+
+<div class="chat-wrapper">
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div>
+        <div style="font-weight:700">زكي</div>
+        <div style="font-size:0.8rem;color:#0f0">● متصل الآن</div>
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg bot">أهلاً! أنا زكي، مساعدك في التوجيهي الأردني. اسألني عن أي مادة وسأشرح لك خطوة بخطوة. 💪</div>
+    </div>
+    
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك..." onkeypress="if(event.key==='Enter')sendMessage()">
+      <button id="send-btn" onclick="sendMessage()">إرسال</button>
+    </div>
+  </div>
+  
+  <div class="daily-counter" id="counter"></div>
+</div>
+
+<footer><p>© 2026 توجيهي الأردن</p></footer>
+
+<script>
+// ⚠️ ضع رابط Cloudflare Worker هنا
+const WORKER_URL = "https://tawjihi-ai.YOUR-NAME.workers.dev";
+
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const counter = document.getElementById('counter');
+
+const DAILY_LIMIT = 15;
+const today = new Date().toDateString();
+let usage = JSON.parse(localStorage.getItem('usage') || '{}');
+if (usage.date !== today) usage = { date: today, count: 0 };
+
+function updateCounter() {
+  counter.textContent = `📊 رسائل اليوم: ${usage.count} / ${DAILY_LIMIT}`;
+}
+updateCounter();
+
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  
+  if (usage.count >= DAILY_LIMIT) {
+    alert('وصلت للحد اليومي (' + DAILY_LIMIT + ' رسائل). عد غداً! 💪');
+    return;
+  }
+  
+  const userMsg = document.createElement('div');
+  userMsg.className = 'msg user';
+  userMsg.textContent = text;
+  chatMessages.appendChild(userMsg);
+  chatInput.value = '';
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  const typing = document.createElement('div');
+  typing.className = 'msg bot';
+  typing.textContent = '... يفكر';
+  chatMessages.appendChild(typing);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  sendBtn.disabled = true;
+  
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    typing.textContent = data.choices?.[0]?.message?.content || "حدث خطأ، حاول مجدداً.";
+    
+    usage.count++;
+    localStorage.setItem('usage', JSON.stringify(usage));
+    updateCounter();
+  } catch (err) {
+    typing.textContent = "⚠️ تعذر الاتصال. تحقق من الإنترنت.";
+  }
+  
+  sendBtn.disabled = false;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>
+
+</body>
+</html>

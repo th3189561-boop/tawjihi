@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة الدوسيات | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+  :root{--bg-deep:#08060f;--bg-card:rgba(255,255,255,0.04);--gold:#d4af37;--gold-light:#f4d03f;--purple:#8b5cf6;--purple-deep:#6d28d9;--pink:#ec4899;--border:rgba(212,175,55,0.2);--text:#f5f5f7;--text-dim:#a1a1aa}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg-deep);color:var(--text);overflow-x:hidden;min-height:100vh;position:relative}
+  .aura-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden;pointer-events:none}
+  .aura{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:auraFloat 20s ease-in-out infinite}
+  .aura-1{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent 70%);top:-10%;right:-10%}
+  .aura-2{width:600px;height:600px;background:radial-gradient(circle,#d4af37,transparent 70%);bottom:-15%;left:-15%;animation-delay:-7s}
+  .aura-3{width:400px;height:400px;background:radial-gradient(circle,#ec4899,transparent 70%);top:40%;left:40%;animation-delay:-14s}
+  @keyframes auraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(0.9)}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  nav{position:fixed;top:0;width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,6,15,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.15);z-index:100;animation:slideDown 0.8s cubic-bezier(0.175,0.885,0.32,1.275)}
+  @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+  .logo{font-size:1.3rem;font-weight:900;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light),#fff,var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+  @keyframes shineText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .nav-actions{display:flex;gap:10px;align-items:center}
+  .back-btn{color:var(--text);text-decoration:none;font-weight:700;padding:8px 16px;border-radius:25px;background:var(--bg-card);border:1px solid var(--border);transition:all 0.3s;font-size:0.9rem;display:flex;align-items:center;gap:6px}
+  .back-btn:hover{color:var(--gold);border-color:var(--gold);transform:translateX(-4px)}
+  .insta-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;box-shadow:0 5px 20px rgba(220,39,67,0.4)}
+  .insta-btn:hover{transform:scale(1.1) rotate(-8deg);box-shadow:0 8px 30px rgba(220,39,67,0.7)}
+  .insta-btn svg{width:22px;height:22px;fill:#fff}
+  .header{padding:130px 20px 30px;text-align:center;position:relative}
+  .header h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:900;line-height:1.2;margin-bottom:15px;background:linear-gradient(135deg,#fff 0%,var(--gold-light) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp 0.8s ease-out 0.2s both}
+  .header p{color:var(--text-dim);font-size:1.05rem;max-width:600px;margin:0 auto;animation:fadeUp 0.8s ease-out 0.4s both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .counter{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 22px;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(139,92,246,0.15));border:1px solid var(--border);border-radius:30px;font-weight:700;color:var(--gold);font-size:0.95rem;animation:fadeUp 0.8s ease-out 0.6s both}
+  .library-banner{max-width:900px;margin:40px auto;padding:40px 25px;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(212,175,55,0.1));border:1px solid rgba(212,175,55,0.3);border-radius:30px;text-align:center;position:relative;overflow:hidden;animation:fadeUp 0.8s ease-out 0.8s both}
+  .library-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(212,175,55,0.15),transparent 30%);animation:rotateConic 8s linear infinite;pointer-events:none}
+  @keyframes rotateConic{to{transform:rotate(360deg)}}
+  .library-banner > *{position:relative;z-index:1}
+  .badge{display:inline-block;padding:6px 16px;background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.4);color:#4ade80;border-radius:20px;font-size:0.8rem;font-weight:700;margin-bottom:15px;animation:pulseSoft 2s ease-in-out infinite}
+  @keyframes pulseSoft{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.5)}50%{box-shadow:0 0 0 8px rgba(0,255,136,0)}}
+  .library-banner h2{font-size:clamp(1.4rem,4vw,2rem);font-weight:900;margin-bottom:12px;color:#fff}
+  .library-banner p{color:var(--text-dim);margin-bottom:25px;line-height:1.7}
+  .library-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;text-decoration:none;border-radius:50px;font-weight:900;font-size:1rem;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 15px 40px rgba(212,175,55,0.4);position:relative;overflow:hidden}
+  .library-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);transition:left 0.6s}
+  .library-btn:hover::after{left:100%}
+  .library-btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 20px 50px rgba(212,175,55,0.6)}
+  .section{padding:20px 20px 60px;max-width:1200px;margin:auto}
+  .subject-title{font-size:1.6rem;font-weight:900;margin:50px 0 25px;display:flex;align-items:center;gap:14px;color:#fff;animation:fadeUp 0.6s ease-out both}
+  .subject-title::before{content:'';width:5px;height:36px;background:linear-gradient(180deg,var(--gold),var(--purple));border-radius:5px;box-shadow:0 0 20px rgba(212,175,55,0.6)}
+  .dossier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .dossier-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:24px;position:relative;overflow:hidden;transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .dossier-card::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,rgba(212,175,55,0.15),transparent 70%);border-radius:50%;transform:translate(35%,-35%);transition:all 0.5s}
+  .dossier-card:hover::before{width:200px;height:200px;background:radial-gradient(circle,rgba(212,175,55,0.3),transparent 70%)}
+  .dossier-card:hover{transform:translateY(-8px);border-color:rgba(212,175,55,0.4);box-shadow:0 25px 50px rgba(212,175,55,0.15),0 0 0 1px rgba(212,175,55,0.2)}
+  .dossier-card > *{position:relative;z-index:1}
+  .dossier-badge{display:inline-block;padding:4px 14px;background:linear-gradient(135deg,var(--purple),var(--purple-deep));color:#fff;border-radius:20px;font-size:0.72rem;font-weight:700;margin-bottom:14px;box-shadow:0 4px 15px rgba(139,92,246,0.3)}
+  .dossier-card h3{font-size:1.1rem;margin-bottom:10px;line-height:1.4;color:#fff;font-weight:900}
+  .dossier-card .teacher{color:var(--gold);font-size:0.9rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .dossier-card .meta{color:var(--text-dim);font-size:0.82rem;margin-bottom:18px}
+  .download-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;border-radius:30px;text-decoration:none;font-weight:900;font-size:0.9rem;width:100%;transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);position:relative;overflow:hidden}
+  .download-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transition:left 0.5s}
+  .download-btn:hover::after{left:100%}
+  .download-btn:hover{transform:scale(1.03);box-shadow:0 10px 30px rgba(212,175,55,0.5)}
+  footer{text-align:center;padding:50px 20px 30px;border-top:1px solid rgba(212,175,55,0.1);margin-top:40px}
+  footer .footer-content{max-width:900px;margin:0 auto}
+  footer .dev-card{display:inline-flex;flex-direction:column;align-items:center;gap:15px;padding:25px 35px;background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(212,175,55,0.1));border:1px solid rgba(212,175,55,0.2);border-radius:22px;margin-bottom:25px;transition:all 0.3s}
+  footer .dev-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  footer .dev-card h3{color:var(--gold);font-size:1.1rem;font-weight:900}
+  footer .dev-card p{color:var(--text-dim);font-size:0.9rem}
+  footer .insta-link{display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;text-decoration:none;border-radius:30px;font-weight:900;font-size:0.95rem;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 10px 30px rgba(220,39,67,0.4)}
+  footer .insta-link:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 15px 40px rgba(220,39,67,0.7)}
+  footer .insta-link svg{width:20px;height:20px;fill:#fff}
+  footer .copyright{color:#555;font-size:0.85rem;margin-top:20px}
+  .dot-decoration{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 15px var(--gold);pointer-events:none;z-index:0}
+  .dot-1{top:20%;right:5%;animation:floatDot 6s ease-in-out infinite}
+  .dot-2{top:60%;left:8%;animation:floatDot 8s ease-in-out infinite -3s}
+  .dot-3{top:80%;right:15%;animation:floatDot 7s ease-in-out infinite -5s}
+  @keyframes floatDot{0%,100%{transform:translate(0,0);opacity:0.3}50%{transform:translate(20px,-30px);opacity:1}}
+  @media(max-width:768px){.dossier-grid{grid-template-columns:1fr}.subject-title{font-size:1.3rem}.library-banner{padding:30px 20px}.header{padding:110px 15px 20px}.header h1{font-size:2rem}footer .dev-card{padding:20px 25px}}
+  .loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-deep);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s,visibility 0.5s}
+  .loader.hide{opacity:0;visibility:hidden}
+  .loader-spinner{width:60px;height:60px;border:3px solid rgba(212,175,55,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div class="loader-spinner"></div></div>
+
+<div class="aura-bg">
+  <div class="aura aura-1"></div>
+  <div class="aura aura-2"></div>
+  <div class="aura aura-3"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<div class="dot-decoration dot-1"></div>
+<div class="dot-decoration dot-2"></div>
+<div class="dot-decoration dot-3"></div>
+
+<nav>
+  <div class="logo">📚 مكتبة الدوسيات</div>
+  <div class="nav-actions">
+    <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+    <a href="https://instagram.com/bzu82is" target="_blank" class="insta-btn" title="تابعني على إنستغرام">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<div class="header">
+  <h1>مكتبة الدوسيات</h1>
+  <p>كل ملخصات ومراجعات توجيهي 2009 / 2010 — بموافقة المالك الرسمي</p>
+  <div class="counter">✨ 9 دوسيات متوفرة</div>
+</div>
+
+<div class="section">
+
+  <div class="library-banner">
+    <span class="badge">✅ بموافقة المالك الرسمي</span>
+    <h2>📖 مكتبة حساس الشاملة</h2>
+    <p>تفضل بزيارة المكتبة الرسمية للاطلاع على جميع الملفات المحدَّثة باستمرار</p>
+    <a href="https://hisas.online/library" target="_blank" class="library-btn">
+      🚀 افتح المكتبة
+    </a>
+  </div>
+
+  <h2 class="subject-title">📖 اللغة العربية</h2>
+  <div class="dossier-grid">
+
+    <div class="dossier-card">
+      <span class="dossier-badge">دوسية</span>
+      <h3>اللغة العربية 2010</h3>
+      <p class="teacher">👨‍🏫 أ. علي علقم</p>
+      <p class="meta">📄 توجيهي 2010 • 733 تحميل</p>
+      <a href="https://hisas.online/library/2439" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+    <div class="dossier-card">
+      <span class="dossier-badge">تأسيس</span>
+      <h3>تأسيس اللغة العربية 2010</h3>
+      <p class="teacher">👨‍🏫 أ. علي علقم</p>
+      <p class="meta">📄 توجيهي 2010 • 221 تحميل</p>
+      <a href="https://hisas.online/library/2438" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+    <div class="dossier-card">
+      <span class="dossier-badge">أسئلة وزارة</span>
+      <h3>امتحان بدرس صور الفاعل</h3>
+      <p class="teacher">👨‍🏫 أ. أحمد جادالله</p>
+      <p class="meta">📄 توجيهي 2010 • 141 تحميل</p>
+      <a href="https://hisas.online/library/2443" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+    <div class="dossier-card">
+      <span class="dossier-badge">ملخص</span>
+      <h3>شرح قصيدة وطني الأردن</h3>
+      <p class="teacher">👨‍🏫 أ. ثائر جراد</p>
+      <p class="meta">📄 الصف التاسع • 141 تحميل</p>
+      <a href="https://hisas.online/library/2442" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+  </div>
+
+  <h2 class="subject-title">📜 عربي تخصص</h2>
+  <div class="dossier-grid">
+
+    <div class="dossier-card">
+      <span class="dossier-badge">دوسية</span>
+      <h3>اللغة العربية المتقدم (النحو)</h3>
+      <p class="teacher">👨‍🏫 أ. علي علقم</p>
+      <p class="meta">📄 توجيهي 2009 • 410 تحميل</p>
+      <a href="https://hisas.online/library/2437" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+    <div class="dossier-card">
+      <span class="dossier-badge">دوسية</span>
+      <h3>اللغة العربية المتقدم (الأدب)</h3>
+      <p class="teacher">👨‍🏫 أ. علي علقم</p>
+      <p class="meta">📄 توجيهي 2009 • 321 تحميل</p>
+      <a href="https://hisas.online/library/2436" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+  </div>
+
+  <h2 class="subject-title">🧪 الكيمياء</h2>
+  <div class="dossier-grid">
+
+    <div class="dossier-card">
+      <span class="dossier-badge">أسئلة وزارة</span>
+      <h3>امتحان كيمياء الحالة الغازية 2009</h3>
+      <p class="teacher">👨‍🏫 أ. عمار عودة</p>
+      <p class="meta">📄 توجيهي 2009 • 333 تحميل</p>
+      <a href="https://hisas.online/library/2440" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+  </div>
+
+  <h2 class="subject-title">🔢 الرياضيات</h2>
+  <div class="dossier-grid">
+
+    <div class="dossier-card">
+      <span class="dossier-badge">تأسيس</span>
+      <h3>تأسيس رياضيات 2010</h3>
+      <p class="teacher">👨‍🏫 أ. وسيم جرادات</p>
+      <p class="meta">📄 توجيهي 2010</p>
+      <a href="https://hisas.online/library/2433" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+  </div>
+
+  <h2 class="subject-title">⚛️ الفيزياء</h2>
+  <div class="dossier-grid">
+
+    <div class="dossier-card">
+      <span class="dossier-badge">دوسية</span>
+      <h3>دوسية الوحدة الأولى</h3>
+      <p class="teacher">👨‍🏫 أ. راشد الحوراني</p>
+      <p class="meta">📄 توجيهي 2009</p>
+      <a href="https://hisas.online/library/2434" target="_blank" class="download-btn">📥 تحميل</a>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="dev-card">
+      <h3>👨‍💻 تم تطوير هذا التطبيق بواسطة</h3>
+      <p>تابعني على إنستغرام للاطلاع على كل جديد</p>
+      <a href="https://instagram.com/bzu82is" target="_blank" class="insta-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @bzu82is
+      </a>
+    </div>
+    <p class="copyright">© 2026 توجيهي الأردن — بالتنسيق مع مكتبة حساس</p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hide');
+    }, 500);
+  });
+
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.dossier-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    observer.observe(card);
+  });
+
+  document.querySelectorAll('.subject-title').forEach(title => {
+    title.style.opacity = '0';
+    title.style.transform = 'translateX(30px)';
+    title.style.transition = 'opacity 0.6s, transform 0.6s';
+    observer.observe(title);
+  });
+</script>
+
+</body>
+</html>

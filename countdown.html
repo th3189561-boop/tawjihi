@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العد التنازلي | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+  :root{--bg-deep:#08060f;--bg-card:rgba(255,255,255,0.04);--gold:#d4af37;--gold-light:#f4d03f;--purple:#8b5cf6;--border:rgba(212,175,55,0.2);--text:#f5f5f7;--text-dim:#a1a1aa;--error:#ef4444}
+  body{background:var(--bg-deep);color:var(--text);min-height:100vh;position:relative}
+  .aura-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden;pointer-events:none}
+  .aura{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:auraFloat 20s ease-in-out infinite}
+  .aura-1{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent 70%);top:-10%;right:-10%}
+  .aura-2{width:600px;height:600px;background:radial-gradient(circle,#d4af37,transparent 70%);bottom:-15%;left:-15%;animation-delay:-7s}
+  @keyframes auraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(0.9)}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  nav{position:fixed;top:0;width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,6,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.15);z-index:100}
+  .logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light),#fff,var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+  @keyframes shineText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .back-btn{color:var(--text);text-decoration:none;font-weight:700;padding:8px 16px;border-radius:25px;background:var(--bg-card);border:1px solid var(--border);transition:all 0.3s;font-size:0.9rem}
+  .back-btn:hover{color:var(--gold);border-color:var(--gold)}
+  .header{padding:110px 20px 20px;text-align:center}
+  .header h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#fff,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+  .header p{color:var(--text-dim);font-size:1rem}
+  .section{padding:20px;max-width:700px;margin:auto}
+  .countdown-box{background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(139,92,246,0.15));border:2px solid rgba(212,175,55,0.4);border-radius:30px;padding:40px 20px;text-align:center;margin-bottom:25px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(212,175,55,0.2)}
+  .countdown-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(212,175,55,0.15),transparent 30%);animation:rotateConic 10s linear infinite;pointer-events:none}
+  @keyframes rotateConic{to{transform:rotate(360deg)}}
+  .countdown-box > *{position:relative;z-index:1}
+  .countdown-label{color:var(--gold);font-weight:700;font-size:1rem;margin-bottom:15px}
+  .countdown-timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+  .time-unit{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:15px;padding:15px 5px;position:relative}
+  .time-num{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1;margin-bottom:5px;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.8}}
+  .time-label{color:var(--text-dim);font-size:0.75rem;font-weight:700}
+  .countdown-date{color:#fff;font-weight:700;margin-top:15px;font-size:1rem}
+  .info-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:25px;margin-bottom:20px;backdrop-filter:blur(10px)}
+  .info-card h3{color:var(--gold);font-size:1.1rem;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .field{margin-bottom:15px}
+  .field label{display:block;color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:8px;padding-right:8px}
+  .field input,.field select{width:100%;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:15px;color:#fff;font-family:'Tajawal';font-size:1rem;outline:none;transition:all 0.3s}
+  .field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 25px rgba(212,175,55,0.2)}
+  .field select option{background:#1a1a2e;color:#fff}
+  .btn{display:block;width:100%;padding:16px;border:none;border-radius:50px;font-family:'Tajawal';font-weight:900;font-size:1rem;cursor:pointer;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);text-align:center}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;box-shadow:0 10px 30px rgba(212,175,55,0.4)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(212,175,55,0.6)}
+  .btn-danger{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;margin-top:10px;box-shadow:0 10px 30px rgba(220,38,38,0.4)}
+  .btn-danger:hover{transform:translateY(-3px)}
+  .no-exam{text-align:center;padding:30px 20px;color:var(--text-dim)}
+  .no-exam .icon{font-size:3rem;display:block;margin-bottom:15px;opacity:0.5}
+  .exam-list{margin-top:20px}
+  .exam-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:15px;padding:15px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+  .exam-item-info{flex:1}
+  .exam-item-name{font-weight:700;color:#fff;margin-bottom:5px}
+  .exam-item-days{color:var(--gold);font-weight:900;font-size:1.2rem}
+  .exam-item-delete{background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.4);color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.9rem;transition:all 0.3s;margin-right:10px}
+  .exam-item-delete:hover{background:#dc2626;transform:scale(1.1)}
+  @media(max-width:768px){.countdown-timer{grid-template-columns:repeat(4,1fr);gap:6px}.time-num{font-size:1.6rem}.time-unit{padding:12px 3px}.header h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<div class="aura-bg">
+  <div class="aura aura-1"></div>
+  <div class="aura aura-2"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo">⏰ العد التنازلي</div>
+  <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+</nav>
+
+<div class="header">
+  <h1>العد التنازلي للامتحانات</h1>
+  <p>لا تضيع يوماً واحداً — الوقت يمر بسرعة!</p>
+</div>
+
+<div class="section">
+
+  <div class="countdown-box" id="countdownBox">
+    <div class="countdown-label">⏳ الوقت المتبقي لامتحانك القادم</div>
+    <div class="countdown-timer">
+      <div class="time-unit">
+        <span class="time-num" id="days">00</span>
+        <span class="time-label">يوم</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-num" id="hours">00</span>
+        <span class="time-label">ساعة</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-num" id="minutes">00</span>
+        <span class="time-label">دقيقة</span>
+      </div>
+      <div class="time-unit">
+        <span class="time-num" id="seconds">00</span>
+        <span class="time-label">ثانية</span>
+      </div>
+    </div>
+    <div class="countdown-date" id="examDateLabel">—</div>
+  </div>
+
+  <div class="info-card">
+    <h3>➕ إضافة امتحان جديد</h3>
+    <div class="field">
+      <label>اسم الامتحان</label>
+      <input type="text" id="examName" placeholder="مثال: رياضيات — الوحدة الأولى">
+    </div>
+    <div class="field">
+      <label>تاريخ الامتحان</label>
+      <input type="date" id="examDate">
+    </div>
+    <button class="btn btn-primary" onclick="addExam()">➕ إضافة الامتحان</button>
+  </div>
+
+  <div class="info-card">
+    <h3>📅 امتحاناتك القادمة</h3>
+    <div id="examsList" class="exam-list">
+      <p class="no-exam"><span class="icon">📭</span>لا توجد امتحانات مضافة بعد</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  let exams = JSON.parse(localStorage.getItem('tawjihi_exams') || '[]');
+  let countdownInterval = null;
+
+  function addExam() {
+    const name = document.getElementById('examName').value.trim();
+    const date = document.getElementById('examDate').value;
+    
+    if (!name || !date) {
+      alert('⚠️ املأ جميع الحقول');
+      return;
+    }
+    
+    const examDate = new Date(date);
+    if (examDate <= new Date()) {
+      alert('⚠️ التاريخ يجب أن يكون في المستقبل');
+      return;
+    }
+    
+    exams.push({
+      id: 'exam_' + Date.now(),
+      name: name,
+      date: date
+    });
+    
+    exams.sort((a, b) => new Date(a.date) - new Date(b.date));
+    localStorage.setItem('tawjihi_exams', JSON.stringify(exams));
+    
+    document.getElementById('examName').value = '';
+    document.getElementById('examDate').value = '';
+    
+    renderExams();
+    startCountdown();
+  }
+
+  function deleteExam(id) {
+    if (!confirm('حذف هذا الامتحان؟')) return;
+    exams = exams.filter(e => e.id !== id);
+    localStorage.setItem('tawjihi_exams', JSON.stringify(exams));
+    renderExams();
+    startCountdown();
+  }
+
+  function renderExams() {
+    const list = document.getElementById('examsList');
+    
+    if (exams.length === 0) {
+      list.innerHTML = '<p class="no-exam"><span class="icon">📭</span>لا توجد امتحانات مضافة بعد</p>';
+      return;
+    }
+    
+    list.innerHTML = exams.map(exam => {
+      const days = Math.ceil((new Date(exam.date) - new Date()) / (1000 * 60 * 60 * 24));
+      const dateStr = new Date(exam.date).toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
+      return `
+        <div class="exam-item">
+          <div class="exam-item-info">
+            <div class="exam-item-name">${exam.name}</div>
+            <div style="color:var(--text-dim);font-size:0.8rem">${dateStr}</div>
+          </div>
+          <div style="display:flex;align-items:center">
+            <span class="exam-item-days">${days > 0 ? days : 0}</span>
+            <span style="color:var(--text-dim);font-size:0.8rem;margin:0 5px">يوم</span>
+            <button class="exam-item-delete" onclick="deleteExam('${exam.id}')">✕</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function startCountdown() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    
+    if (exams.length === 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      document.getElementById('examDateLabel').textContent = 'أضف امتحاناً للبدء';
+      return;
+    }
+    
+    const nextExam = exams[0];
+    document.getElementById('examDateLabel').textContent = `📌 ${nextExam.name}`;
+    
+    function update() {
+      const now = new Date();
+      const examDate = new Date(nextExam.date);
+      const diff = examDate - now;
+      
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+      }
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    
+    update();
+    countdownInterval = setInterval(update, 1000);
+  }
+
+  renderExams();
+  startCountdown();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مؤقت بومودورو | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+  :root{--bg-deep:#08060f;--bg-card:rgba(255,255,255,0.04);--gold:#d4af37;--gold-light:#f4d03f;--purple:#8b5cf6;--purple-deep:#6d28d9;--pink:#ec4899;--border:rgba(212,175,55,0.2);--text:#f5f5f7;--text-dim:#a1a1aa;--success:#22c55e;--error:#ef4444;--break:#06b6d4}
+  body{background:var(--bg-deep);color:var(--text);min-height:100vh;position:relative;overflow-x:hidden}
+  .aura-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden;pointer-events:none}
+  .aura{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:auraFloat 20s ease-in-out infinite}
+  .aura-1{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent 70%);top:-10%;right:-10%}
+  .aura-2{width:600px;height:600px;background:radial-gradient(circle,#d4af37,transparent 70%);bottom:-15%;left:-15%;animation-delay:-7s}
+  .aura-3{width:400px;height:400px;background:radial-gradient(circle,#ec4899,transparent 70%);top:40%;left:40%;animation-delay:-14s}
+  @keyframes auraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(0.9)}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  nav{position:fixed;top:0;width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,6,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.15);z-index:100}
+  .logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light),#fff,var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+  @keyframes shineText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .back-btn{color:var(--text);text-decoration:none;font-weight:700;padding:8px 16px;border-radius:25px;background:var(--bg-card);border:1px solid var(--border);transition:all 0.3s;font-size:0.9rem}
+  .back-btn:hover{color:var(--gold);border-color:var(--gold)}
+  .header{padding:110px 20px 20px;text-align:center}
+  .header h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#fff,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+  .header p{color:var(--text-dim);font-size:1rem}
+  .section{padding:20px;max-width:600px;margin:auto}
+  
+  /* Tabs */
+  .mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:25px;background:rgba(255,255,255,0.03);padding:6px;border-radius:20px;border:1px solid rgba(255,255,255,0.06)}
+  .mode-tab{padding:12px;border:none;background:transparent;color:var(--text-dim);font-family:'Tajawal';font-weight:700;font-size:0.9rem;cursor:pointer;border-radius:15px;transition:all 0.3s}
+  .mode-tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;box-shadow:0 5px 20px rgba(212,175,55,0.4)}
+  
+  /* Timer Circle */
+  .timer-container{position:relative;width:280px;height:280px;margin:0 auto 30px;display:flex;align-items:center;justify-content:center}
+  .timer-svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg)}
+  .timer-circle-bg{fill:none;stroke:rgba(212,175,55,0.1);stroke-width:8}
+  .timer-circle-progress{fill:none;stroke:url(#goldGradient);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 10px rgba(212,175,55,0.6))}
+  .timer-content{position:relative;z-index:2;text-align:center}
+  .timer-time{font-size:3.5rem;font-weight:900;line-height:1;background:linear-gradient(135deg,#fff,var(--gold-light),var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite;letter-spacing:2px}
+  .timer-status{color:var(--gold);font-weight:700;font-size:1rem;margin-top:8px;letter-spacing:1px}
+  
+  /* Controls */
+  .controls{display:flex;gap:12px;justify-content:center;margin-bottom:25px;flex-wrap:wrap}
+  .ctrl-btn{padding:16px 32px;border:none;border-radius:50px;font-family:'Tajawal';font-weight:900;font-size:1rem;cursor:pointer;transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;align-items:center;gap:8px}
+  .ctrl-btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;box-shadow:0 10px 30px rgba(212,175,55,0.4)}
+  .ctrl-btn.primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(212,175,55,0.6)}
+  .ctrl-btn.secondary{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}
+  .ctrl-btn.secondary:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-3px)}
+  .ctrl-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+  
+  /* Stats */
+  .stats-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:22px;margin-bottom:20px;backdrop-filter:blur(10px)}
+  .stats-card h3{color:var(--gold);font-size:1.1rem;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .stat-box{background:rgba(0,0,0,0.25);border-radius:15px;padding:18px;text-align:center;border:1px solid rgba(212,175,55,0.15)}
+  .stat-num{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1}
+  .stat-label{color:var(--text-dim);font-size:0.8rem;margin-top:8px;font-weight:700}
+  
+  /* Settings */
+  .settings-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:22px;margin-bottom:20px;backdrop-filter:blur(10px)}
+  .settings-card h3{color:var(--gold);font-size:1.1rem;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+  .setting-row:last-child{border-bottom:none}
+  .setting-label{color:var(--text);font-weight:700;font-size:0.95rem}
+  .setting-control{display:flex;align-items:center;gap:10px}
+  .setting-control input{width:70px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(212,175,55,0.25);border-radius:12px;color:#fff;font-family:'Tajawal';font-size:1rem;text-align:center;outline:none;font-weight:700}
+  .setting-control input:focus{border-color:var(--gold);box-shadow:0 0 15px rgba(212,175,55,0.2)}
+  .setting-control span{color:var(--text-dim);font-size:0.85rem}
+  
+  /* Notification toast */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;padding:16px 32px;border-radius:50px;font-weight:900;box-shadow:0 15px 40px rgba(212,175,55,0.5);transition:transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275);z-index:9999;font-size:1rem}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  
+  @media(max-width:768px){
+    .timer-container{width:240px;height:240px}
+    .timer-time{font-size:3rem}
+    .header h1{font-size:1.6rem}
+    .mode-tab{font-size:0.8rem;padding:10px 6px}
+  }
+</style>
+</head>
+<body>
+
+<div class="aura-bg">
+  <div class="aura aura-1"></div>
+  <div class="aura aura-2"></div>
+  <div class="aura aura-3"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo">⏱️ بومودورو</div>
+  <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+</nav>
+
+<div class="header">
+  <h1>مؤقت بومودورو</h1>
+  <p>ركّز 25 دقيقة، ثم استرح 5 دقائق — وكرّر</p>
+</div>
+
+<div class="section">
+
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="setMode('work')">💼 دراسة</button>
+    <button class="mode-tab" onclick="setMode('short')">☕ راحة قصيرة</button>
+    <button class="mode-tab" onclick="setMode('long')">🛋️ راحة طويلة</button>
+  </div>
+
+  <div class="timer-container">
+    <svg class="timer-svg" viewBox="0 0 280 280">
+      <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f4d03f"/>
+          <stop offset="100%" stop-color="#d4af37"/>
+        </linearGradient>
+      </defs>
+      <circle class="timer-circle-bg" cx="140" cy="140" r="130"/>
+      <circle class="timer-circle-progress" id="progressCircle" cx="140" cy="140" r="130"/>
+    </svg>
+    <div class="timer-content">
+      <div class="timer-time" id="timerDisplay">25:00</div>
+      <div class="timer-status" id="timerStatus">جاهز للبدء</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn primary" id="startBtn" onclick="toggleTimer()">▶️ ابدأ</button>
+    <button class="ctrl-btn secondary" onclick="resetTimer()">🔄 إعادة</button>
+  </div>
+
+  <div class="stats-card">
+    <h3>📊 إحصائياتك اليوم</h3>
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num" id="todaySessions">0</span>
+        <span class="stat-label">جلسات اليوم</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="totalSessions">0</span>
+        <span class="stat-label">إجمالي الجلسات</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <h3>⚙️ الإعدادات</h3>
+    <div class="setting-row">
+      <span class="setting-label">⏱️ مدة الدراسة</span>
+      <div class="setting-control">
+        <input type="number" id="workDuration" value="25" min="1" max="60">
+        <span>دقيقة</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">☕ الراحة القصيرة</span>
+      <div class="setting-control">
+        <input type="number" id="shortDuration" value="5" min="1" max="30">
+        <span>دقيقة</span>
+      </div>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">🛋️ الراحة الطويلة</span>
+      <div class="setting-control">
+        <input type="number" id="longDuration" value="15" min="1" max="60">
+        <span>دقيقة</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✅ انتهت الجلسة!</div>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  let currentMode = 'work';
+  let timeLeft = 25 * 60;
+  let totalTime = 25 * 60;
+  let isRunning = false;
+  let timerInterval = null;
+
+  const modes = {
+    work: { name: 'دراسة', status: 'ركز الآن 💪', durations: 25 },
+    short: { name: 'راحة قصيرة', status: 'استرح قليلاً ☕', durations: 5 },
+    long: { name: 'راحة طويلة', status: 'خذ نفساً عميقاً 🛋️', durations: 15 }
+  };
+
+  function getDuration(mode) {
+    const input = document.getElementById(mode + 'Duration');
+    return parseInt(input.value) || modes[mode].durations;
+  }
+
+  function setMode(mode) {
+    if (isRunning) {
+      if (!confirm('هل تريد تغيير الوضع؟ سيتم إيقاف المؤقت الحالي.')) return;
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('startBtn').textContent = '▶️ ابدأ';
+    }
+    
+    currentMode = mode;
+    document.querySelectorAll('.mode-tab').forEach((tab, i) => {
+      const modeMap = ['work', 'short', 'long'];
+      tab.classList.toggle('active', modeMap[i] === mode);
+    });
+    
+    resetTimer();
+  }
+
+  function updateDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent = 
+      String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    
+    // تحديث دائرة التقدم
+    const circumference = 2 * Math.PI * 130;
+    const offset = circumference * (1 - timeLeft / totalTime);
+    document.getElementById('progressCircle').style.strokeDasharray = circumference;
+    document.getElementById('progressCircle').style.strokeDashoffset = offset;
+  }
+
+  function toggleTimer() {
+    if (isRunning) {
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('startBtn').innerHTML = '▶️ متابعة';
+      document.getElementById('timerStatus').textContent = 'متوقف مؤقتاً';
+    } else {
+      isRunning = true;
+      document.getElementById('startBtn').innerHTML = '⏸️ إيقاف';
+      document.getElementById('timerStatus').textContent = modes[currentMode].status;
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateDisplay();
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          isRunning = false;
+          playNotification();
+          onTimerComplete();
+        }
+      }, 1000);
+    }
+  }
+
+  function onTimerComplete() {
+    // عد الجلسة إذا كانت دراسة
+    if (currentMode === 'work') {
+      const today = new Date().toDateString();
+      let todayCount = parseInt(localStorage.getItem('tawjihi_pomodoro_today_' + today) || '0');
+      todayCount++;
+      localStorage.setItem('tawjihi_pomodoro_today_' + today, todayCount);
+      
+      let total = parseInt(localStorage.getItem('tawjihi_pomodoro_count') || '0');
+      total++;
+      localStorage.setItem('tawjihi_pomodoro_count', total);
+      
+      updateStats();
+      showToast('🎉 أكملت جلسة دراسة! خذ راحة');
+    } else {
+      showToast('☕ انتهت الراحة! هيّا للدراسة');
+    }
+    
+    document.getElementById('startBtn').innerHTML = '▶️ ابدأ';
+    document.getElementById('timerStatus').textContent = 'جاهز للبدء';
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    isRunning = false;
+    
+    const minutes = getDuration(currentMode);
+    timeLeft = minutes * 60;
+    totalTime = minutes * 60;
+    
+    updateDisplay();
+    document.getElementById('startBtn').innerHTML = '▶️ ابدأ';
+    document.getElementById('timerStatus').textContent = 'جاهز للبدء';
+  }
+
+  function playNotification() {
+    // اهتزاز
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+    
+    // صوت
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value = 880;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 1);
+    } catch(e) {}
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function updateStats() {
+    const today = new Date().toDateString();
+    const todayCount = parseInt(localStorage.getItem('tawjihi_pomodoro_today_' + today) || '0');
+    const totalCount = parseInt(localStorage.getItem('tawjihi_pomodoro_count') || '0');
+    
+    document.getElementById('todaySessions').textContent = todayCount;
+    document.getElementById('totalSessions').textContent = totalCount;
+  }
+
+  // مراقبة تغيير الإعدادات
+  ['work', 'short', 'long'].forEach(mode => {
+    document.getElementById(mode + 'Duration').addEventListener('change', () => {
+      if (!isRunning && currentMode === mode) resetTimer();
+    });
+  });
+
+  // تحذير عند مغادرة الصفحة
+  window.addEventListener('beforeunload', (e) => {
+    if (isRunning) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+
+  updateDisplay();
+  updateStats();
+</script>
+
+</body>
+</html>

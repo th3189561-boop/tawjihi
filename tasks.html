@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قائمة المهام | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+  :root{--bg-deep:#08060f;--bg-card:rgba(255,255,255,0.04);--gold:#d4af37;--gold-light:#f4d03f;--purple:#8b5cf6;--purple-deep:#6d28d9;--pink:#ec4899;--border:rgba(212,175,55,0.2);--text:#f5f5f7;--text-dim:#a1a1aa;--success:#22c55e;--error:#ef4444}
+  body{background:var(--bg-deep);color:var(--text);min-height:100vh;position:relative}
+  .aura-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden;pointer-events:none}
+  .aura{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:auraFloat 20s ease-in-out infinite}
+  .aura-1{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent 70%);top:-10%;right:-10%}
+  .aura-2{width:600px;height:600px;background:radial-gradient(circle,#d4af37,transparent 70%);bottom:-15%;left:-15%;animation-delay:-7s}
+  @keyframes auraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(0.9)}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  nav{position:fixed;top:0;width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,6,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.15);z-index:100}
+  .logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light),#fff,var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+  @keyframes shineText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .back-btn{color:var(--text);text-decoration:none;font-weight:700;padding:8px 16px;border-radius:25px;background:var(--bg-card);border:1px solid var(--border);transition:all 0.3s;font-size:0.9rem}
+  .back-btn:hover{color:var(--gold);border-color:var(--gold)}
+  .header{padding:110px 20px 20px;text-align:center}
+  .header h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#fff,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+  .header p{color:var(--text-dim);font-size:1rem}
+  .section{padding:20px;max-width:700px;margin:auto}
+  
+  .progress-card{background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(139,92,246,0.15));border:2px solid rgba(212,175,55,0.3);border-radius:25px;padding:25px;margin-bottom:20px;text-align:center;box-shadow:0 15px 40px rgba(212,175,55,0.15)}
+  .progress-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+  .progress-stat{background:rgba(0,0,0,0.3);border-radius:15px;padding:15px 8px}
+  .progress-num{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1}
+  .progress-label{color:var(--text-dim);font-size:0.75rem;margin-top:6px}
+  .progress-bar{height:12px;background:rgba(0,0,0,0.4);border-radius:10px;overflow:hidden;margin-top:10px;border:1px solid rgba(212,175,55,0.2)}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--success));border-radius:10px;transition:width 0.6s cubic-bezier(0.175,0.885,0.32,1.275);box-shadow:0 0 20px rgba(34,197,94,0.5)}
+  .progress-text{color:var(--gold);font-weight:900;margin-top:12px;font-size:0.95rem}
+  
+  .add-task-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:22px;margin-bottom:20px;backdrop-filter:blur(10px)}
+  .add-task-card h3{color:var(--gold);font-size:1.1rem;font-weight:900;margin-bottom:15px}
+  .field{margin-bottom:12px}
+  .field input,.field select{width:100%;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:15px;color:#fff;font-family:'Tajawal';font-size:1rem;outline:none;transition:all 0.3s}
+  .field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 25px rgba(212,175,55,0.2)}
+  .field select option{background:#1a1a2e;color:#fff}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  
+  .btn{display:block;width:100%;padding:16px;border:none;border-radius:50px;font-family:'Tajawal';font-weight:900;font-size:1rem;cursor:pointer;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);text-align:center;margin-bottom:10px}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;box-shadow:0 10px 30px rgba(212,175,55,0.4)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(212,175,55,0.6)}
+  .btn-danger{background:rgba(220,38,38,0.2);color:#fff;border:1px solid rgba(220,38,38,0.4)}
+  .btn-danger:hover{background:#dc2626;transform:translateY(-3px)}
+  
+  .filter-bar{display:flex;gap:8px;margin-bottom:15px;overflow-x:auto;padding-bottom:5px}
+  .filter-bar::-webkit-scrollbar{display:none}
+  .filter-btn{padding:8px 18px;border-radius:20px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);font-family:'Tajawal';font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+  .filter-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;border-color:transparent;box-shadow:0 5px 20px rgba(212,175,55,0.4)}
+  
+  .tasks-list{}
+  .task-item{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);animation:slideIn 0.4s ease-out}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+  .task-item:hover{transform:translateX(-4px);border-color:rgba(212,175,55,0.3)}
+  .task-item.done{opacity:0.5}
+  .task-item.done .task-title{text-decoration:line-through;color:var(--text-dim)}
+  .task-checkbox{width:28px;height:28px;border-radius:50%;border:2px solid var(--gold);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:transparent;transition:all 0.3s;flex-shrink:0}
+  .task-checkbox:hover{background:rgba(212,175,55,0.2);transform:scale(1.1)}
+  .task-checkbox.checked{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;border-color:transparent}
+  .task-content{flex:1;min-width:0}
+  .task-title{font-weight:700;color:#fff;margin-bottom:5px;word-wrap:break-word}
+  .task-meta{display:flex;gap:10px;font-size:0.78rem;color:var(--text-dim);flex-wrap:wrap}
+  .task-meta .priority{font-weight:700}
+  .task-meta .priority.high{color:#ef4444}
+  .task-meta .priority.medium{color:#f59e0b}
+  .task-meta .priority.low{color:#22c55e}
+  .task-delete{background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.4);color:#fff;width:32px;height:32px;border-radius:10px;cursor:pointer;font-size:0.9rem;transition:all 0.3s;flex-shrink:0}
+  .task-delete:hover{background:#dc2626;transform:scale(1.1)}
+  
+  .empty-state{text-align:center;padding:40px 20px;color:var(--text-dim)}
+  .empty-state .icon{font-size:3rem;display:block;margin-bottom:15px;opacity:0.4}
+  
+  @media(max-width:768px){
+    .header h1{font-size:1.6rem}
+    .progress-num{font-size:1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="aura-bg">
+  <div class="aura aura-1"></div>
+  <div class="aura aura-2"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo">✅ قائمة المهام</div>
+  <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+</nav>
+
+<div class="header">
+  <h1>قائمة المهام</h1>
+  <p>نظّم واجباتك وحقق أهدافك يوماً بيوم</p>
+</div>
+
+<div class="section">
+
+  <div class="progress-card">
+    <div class="progress-stats">
+      <div class="progress-stat">
+        <span class="progress-num" id="totalNum">0</span>
+        <span class="progress-label">الإجمالي</span>
+      </div>
+      <div class="progress-stat">
+        <span class="progress-num" id="doneNum">0</span>
+        <span class="progress-label">منجزة</span>
+      </div>
+      <div class="progress-stat">
+        <span class="progress-num" id="remainingNum">0</span>
+        <span class="progress-label">متبقية</span>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-text" id="progressText">0% مكتمل</div>
+  </div>
+
+  <div class="add-task-card">
+    <h3>➕ إضافة مهمة جديدة</h3>
+    <div class="field">
+      <input type="text" id="taskTitle" placeholder="مثال: حل واجب رياضيات صفحة 45">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <select id="taskPriority">
+          <option value="high">🔴 أولوية عالية</option>
+          <option value="medium" selected>🟡 أولوية متوسطة</option>
+          <option value="low">🟢 أولوية منخفضة</option>
+        </select>
+      </div>
+      <div class="field">
+        <input type="date" id="taskDate">
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="addTask()">➕ إضافة المهمة</button>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">الكل</button>
+    <button class="filter-btn" data-filter="active" onclick="setFilter('active', this)">⏳ غير منجزة</button>
+    <button class="filter-btn" data-filter="done" onclick="setFilter('done', this)">✅ منجزة</button>
+    <button class="filter-btn" data-filter="high" onclick="setFilter('high', this)">🔴 عالية</button>
+  </div>
+
+  <div class="tasks-list" id="tasksList"></div>
+
+  <button class="btn btn-danger" onclick="deleteCompleted()" id="deleteCompletedBtn" style="display:none">🗑️ حذف المنجزة</button>
+
+</div>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  let tasks = JSON.parse(localStorage.getItem('tawjihi_tasks') || '[]');
+  let currentFilter = 'all';
+
+  function addTask() {
+    const title = document.getElementById('taskTitle').value.trim();
+    const priority = document.getElementById('taskPriority').value;
+    const date = document.getElementById('taskDate').value;
+
+    if (!title) {
+      alert('⚠️ اكتب عنوان المهمة');
+      return;
+    }
+
+    tasks.unshift({
+      id: 'task_' + Date.now(),
+      title: title,
+      priority: priority,
+      date: date,
+      done: false,
+      createdAt: Date.now()
+    });
+
+    localStorage.setItem('tawjihi_tasks', JSON.stringify(tasks));
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDate').value = '';
+
+    renderTasks();
+    updateProgress();
+  }
+
+  function toggleTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (task) {
+      task.done = !task.done;
+      localStorage.setItem('tawjihi_tasks', JSON.stringify(tasks));
+      renderTasks();
+      updateProgress();
+    }
+  }
+
+  function deleteTask(id) {
+    if (!confirm('حذف هذه المهمة؟')) return;
+    tasks = tasks.filter(t => t.id !== id);
+    localStorage.setItem('tawjihi_tasks', JSON.stringify(tasks));
+    renderTasks();
+    updateProgress();
+  }
+
+  function deleteCompleted() {
+    if (!confirm('حذف جميع المهام المنجزة؟')) return;
+    tasks = tasks.filter(t => !t.done);
+    localStorage.setItem('tawjihi_tasks', JSON.stringify(tasks));
+    renderTasks();
+    updateProgress();
+  }
+
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTasks();
+  }
+
+  function renderTasks() {
+    const list = document.getElementById('tasksList');
+    let filtered = tasks;
+
+    if (currentFilter === 'active') filtered = tasks.filter(t => !t.done);
+    else if (currentFilter === 'done') filtered = tasks.filter(t => t.done);
+    else if (currentFilter === 'high') filtered = tasks.filter(t => t.priority === 'high');
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="empty-state"><span class="icon">📭</span>لا توجد مهام</div>';
+      return;
+    }
+
+    const priorityLabel = { high: 'عالية', medium: 'متوسطة', low: 'منخفضة' };
+
+    list.innerHTML = filtered.map(task => {
+      let dateStr = '';
+      if (task.date) {
+        const d = new Date(task.date);
+        dateStr = '📅 ' + d.toLocaleDateString('ar-EG', {month:'short', day:'numeric'});
+      }
+
+      return `
+        <div class="task-item ${task.done ? 'done' : ''}">
+          <button class="task-checkbox ${task.done ? 'checked' : ''}" onclick="toggleTask('${task.id}')">✓</button>
+          <div class="task-content">
+            <div class="task-title">${escapeHtml(task.title)}</div>
+            <div class="task-meta">
+              <span class="priority ${task.priority}">🔴 ${priorityLabel[task.priority]}</span>
+              ${dateStr ? `<span>${dateStr}</span>` : ''}
+            </div>
+          </div>
+          <button class="task-delete" onclick="deleteTask('${task.id}')">✕</button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function updateProgress() {
+    const total = tasks.length;
+    const done = tasks.filter(t => t.done).length;
+    const remaining = total - done;
+    const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+    document.getElementById('totalNum').textContent = total;
+    document.getElementById('doneNum').textContent = done;
+    document.getElementById('remainingNum').textContent = remaining;
+    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progressText').textContent = percent + '% مكتمل';
+
+    document.getElementById('deleteCompletedBtn').style.display = done > 0 ? 'block' : 'none';
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  renderTasks();
+  updateProgress();
+</script>
+
+</body>
+</html>

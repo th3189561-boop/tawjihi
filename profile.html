@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ملفي الشخصي | توجيهي الأردن</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+  :root{--bg-deep:#08060f;--bg-card:rgba(255,255,255,0.04);--gold:#d4af37;--gold-light:#f4d03f;--purple:#8b5cf6;--purple-deep:#6d28d9;--border:rgba(212,175,55,0.2);--text:#f5f5f7;--text-dim:#a1a1aa;--success:#22c55e;--error:#ef4444}
+  body{background:var(--bg-deep);color:var(--text);min-height:100vh;position:relative}
+  .aura-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden;pointer-events:none}
+  .aura{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:auraFloat 20s ease-in-out infinite}
+  .aura-1{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent 70%);top:-10%;right:-10%}
+  .aura-2{width:600px;height:600px;background:radial-gradient(circle,#d4af37,transparent 70%);bottom:-15%;left:-15%;animation-delay:-7s}
+  @keyframes auraFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(0.9)}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  nav{position:fixed;top:0;width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(8,6,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.15);z-index:100}
+  .logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light),#fff,var(--gold));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+  @keyframes shineText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  .back-btn{color:var(--text);text-decoration:none;font-weight:700;padding:8px 16px;border-radius:25px;background:var(--bg-card);border:1px solid var(--border);transition:all 0.3s;font-size:0.9rem}
+  .back-btn:hover{color:var(--gold);border-color:var(--gold)}
+  .header{padding:110px 20px 20px;text-align:center}
+  .avatar-big{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--purple));display:flex;align-items:center;justify-content:center;font-size:3rem;font-weight:900;color:#1a1a1a;margin:0 auto 20px;box-shadow:0 20px 60px rgba(212,175,55,0.4);animation:float 4s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .header h1{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#fff,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  .header p{color:var(--text-dim);font-size:1rem}
+  .section{padding:20px;max-width:600px;margin:auto}
+  .info-card{background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:25px;margin-bottom:20px;backdrop-filter:blur(10px)}
+  .info-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+  .info-row:last-child{border-bottom:none}
+  .info-label{color:var(--text-dim);font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:8px}
+  .info-value{color:#fff;font-weight:700;text-align:left}
+  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px}
+  .stat-card{background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(139,92,246,0.1));border:1px solid var(--border);border-radius:18px;padding:20px;text-align:center;transition:all 0.3s}
+  .stat-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+  .stat-num{font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:5px}
+  .stat-label{color:var(--text-dim);font-size:0.85rem;font-weight:700}
+  .btn{display:block;width:100%;padding:16px;border:none;border-radius:50px;font-family:'Tajawal';font-weight:900;font-size:1rem;cursor:pointer;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);margin-bottom:12px;text-align:center;text-decoration:none}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;box-shadow:0 10px 30px rgba(212,175,55,0.4)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(212,175,55,0.6)}
+  .btn-danger{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;box-shadow:0 10px 30px rgba(220,38,38,0.4)}
+  .btn-danger:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(220,38,38,0.6)}
+  .edit-field{margin-bottom:15px}
+  .edit-field label{display:block;color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:8px;padding-right:8px}
+  .edit-field input{width:100%;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:15px;color:#fff;font-family:'Tajawal';font-size:1rem;outline:none;transition:all 0.3s}
+  .edit-field input:focus{border-color:var(--gold);box-shadow:0 0 25px rgba(212,175,55,0.2)}
+  .edit-toggle{display:none}
+  .edit-toggle.show{display:block}
+  @media(max-width:768px){.avatar-big{width:100px;height:100px;font-size:2.5rem}}
+</style>
+</head>
+<body>
+
+<div class="aura-bg">
+  <div class="aura aura-1"></div>
+  <div class="aura aura-2"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo">👤 ملفي الشخصي</div>
+  <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+</nav>
+
+<div class="header">
+  <div class="avatar-big" id="avatarBig">؟</div>
+  <h1 id="profileName">زائر</h1>
+  <p id="profileBranch">لم تسجل دخولك بعد</p>
+</div>
+
+<div class="section">
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-num" id="statTasks">0</span>
+      <span class="stat-label">✅ مهام منجزة</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statPomodoro">0</span>
+      <span class="stat-label">⏱️ جلسات دراسة</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-row">
+      <span class="info-label">👤 الاسم</span>
+      <span class="info-value" id="infoName">—</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">📚 الفرع</span>
+      <span class="info-value" id="infoBranch">—</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">🆔 المعرّف</span>
+      <span class="info-value" id="infoId">—</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">📅 تاريخ التسجيل</span>
+      <span class="info-value" id="infoDate">—</span>
+    </div>
+  </div>
+
+  <div class="edit-toggle" id="editToggle">
+    <div class="info-card">
+      <h3 style="color:var(--gold);margin-bottom:15px;font-size:1.1rem">✏️ تعديل البيانات</h3>
+      <div class="edit-field">
+        <label>الاسم الكامل</label>
+        <input type="text" id="editName" placeholder="اسمك">
+      </div>
+      <div class="edit-field">
+        <label>الفرع الدراسي</label>
+        <input type="text" id="editBranch" placeholder="فرعك">
+      </div>
+      <button class="btn btn-primary" onclick="saveEdit()">💾 حفظ التعديلات</button>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" id="editBtn" onclick="toggleEdit()">✏️ تعديل بياناتي</button>
+  <button class="btn btn-danger" onclick="logout()">🚪 تسجيل الخروج</button>
+
+</div>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  function loadProfile() {
+    const userStr = localStorage.getItem('tawjihi_user');
+    if (!userStr) {
+      window.location.href = 'login.html';
+      return;
+    }
+    
+    try {
+      const user = JSON.parse(userStr);
+      
+      document.getElementById('avatarBig').textContent = user.name.charAt(0);
+      document.getElementById('profileName').textContent = user.name;
+      document.getElementById('profileBranch').textContent = user.branch;
+      document.getElementById('infoName').textContent = user.name;
+      document.getElementById('infoBranch').textContent = user.branch;
+      document.getElementById('infoId').textContent = user.id || '—';
+      
+      if (user.loginTime) {
+        const date = new Date(user.loginTime);
+        document.getElementById('infoDate').textContent = date.toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
+      }
+      
+      document.getElementById('editName').value = user.name;
+      document.getElementById('editBranch').value = user.branch;
+    } catch (e) {
+      console.error(e);
+    }
+    
+    // الإحصائيات
+    const tasks = JSON.parse(localStorage.getItem('tawjihi_tasks') || '[]');
+    const completedTasks = tasks.filter(t => t.done).length;
+    document.getElementById('statTasks').textContent = completedTasks;
+    
+    const pomodoro = localStorage.getItem('tawjihi_pomodoro_count') || '0';
+    document.getElementById('statPomodoro').textContent = pomodoro;
+  }
+
+  function toggleEdit() {
+    const toggle = document.getElementById('editToggle');
+    const btn = document.getElementById('editBtn');
+    if (toggle.classList.contains('show')) {
+      toggle.classList.remove('show');
+      btn.textContent = '✏️ تعديل بياناتي';
+    } else {
+      toggle.classList.add('show');
+      btn.textContent = '❌ إلغاء التعديل';
+    }
+  }
+
+  function saveEdit() {
+    const name = document.getElementById('editName').value.trim();
+    const branch = document.getElementById('editBranch').value.trim();
+    
+    if (!name || !branch) {
+      alert('⚠️ املأ جميع الحقول');
+      return;
+    }
+    
+    const userStr = localStorage.getItem('tawjihi_user');
+    const user = JSON.parse(userStr);
+    user.name = name;
+    user.branch = branch;
+    localStorage.setItem('tawjihi_user', JSON.stringify(user));
+    
+    alert('✅ تم حفظ التعديلات');
+    loadProfile();
+    toggleEdit();
+  }
+
+  function logout() {
+    if (confirm('هل تريد تسجيل الخروج؟')) {
+      localStorage.removeItem('tawjihi_user');
+      window.location.href = 'login.html';
+    }
+  }
+
+  loadProfile();
+</script>
+
+</body>
+</html>
